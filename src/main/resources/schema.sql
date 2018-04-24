@@ -1,0 +1,7 @@
+
+CREATE TABLE IF NOT EXISTS `account` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  `version` INT NOT NULL,
+  `sum` INT NOT NULL,
+  PRIMARY KEY (`id`));
