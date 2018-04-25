@@ -56,7 +56,7 @@ public class ServiceImpl implements Services {
     public Account balance(Long name) {
         logger.info("Account get by name:" + name);
         Account account = dao.balance(name);
-        if(account.getName() == null) throw new ServiceException("Аккаунта № " + name + " не существует");
+        if(account == null) throw new ServiceException("Аккаунта № " + name + " не существует");
         return account;
     }
 
@@ -90,7 +90,7 @@ public class ServiceImpl implements Services {
     public void withdraw(View view){
         Long name = view.name;
         Account account = dao.balance(name);
-        if(name == null) throw new ServiceException("Аккаунта № " + name + " не существует");
+        if(account == null) throw new ServiceException("Аккаунта № " + name + " не существует");
         if(view.sum < 0) throw new ServiceException("Невозможно снять отрицтельную сумму!!!");
         account.setSum(account.getSum() - view.sum);
         if(account.getSum() < 0) throw new ServiceException("На счету недостаточно средств");
