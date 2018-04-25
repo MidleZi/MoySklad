@@ -31,6 +31,10 @@ public class Account {
         this.sum = sum;
     }
 
+    public Account(Long name) {
+        this.name = name;
+    }
+
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("{id:");

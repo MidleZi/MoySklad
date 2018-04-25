@@ -8,9 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
@@ -35,7 +32,7 @@ public class DAOImpl implements DAO {
 
     @Override
     public void create(Account account) {
-        logger.info("save:" + account.toString());
+        logger.info("create:" + account.toString());
         em.persist(account);
     }
 

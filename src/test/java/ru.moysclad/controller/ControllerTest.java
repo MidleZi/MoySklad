@@ -37,7 +37,7 @@ public class ControllerTest {
         HttpEntity entity = new HttpEntity<>(body, headers);
 
         ResponseEntity<ResponseViewData> responseEntity =
-                restTemplate.exchange(patternURL + "/deposit", HttpMethod.POST, entity,
+                restTemplate.exchange(patternURL + "/create", HttpMethod.POST, entity,
                         new ParameterizedTypeReference<ResponseViewData>(){
                         });
 
@@ -62,7 +62,7 @@ public class ControllerTest {
         HttpEntity entity = new HttpEntity<>(body, headers);
 
         ResponseEntity<ResponseViewData> responseEntity =
-                restTemplate.exchange(patternURL + "/deposit", HttpMethod.POST, entity,
+                restTemplate.exchange(patternURL + "/deposit", HttpMethod.PUT, entity,
                         new ParameterizedTypeReference<ResponseViewData>(){
                         });
 
@@ -87,7 +87,7 @@ public class ControllerTest {
         HttpEntity entity = new HttpEntity<>(body, headers);
 
         ResponseEntity<ResponseViewData> responseEntity =
-                restTemplate.exchange(patternURL + "/withdraw", HttpMethod.POST, entity,
+                restTemplate.exchange(patternURL + "/withdraw", HttpMethod.PUT, entity,
                         new ParameterizedTypeReference<ResponseViewData>(){
                         });
 

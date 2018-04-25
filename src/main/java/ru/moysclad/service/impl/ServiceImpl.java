@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import ru.moysclad.dao.DAO;
 import ru.moysclad.view.View;
-import java.rmi.ServerException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ServiceImpl implements Services {
@@ -26,20 +28,49 @@ public class ServiceImpl implements Services {
 
     @Override
     @Transactional
+    public List<View> getAllAccounts() {
+
+        List<Account> allOrganization = dao.getAllAccount();
+        List<View> viewlist = new ArrayList();
+
+
+        if(allOrganization == null) throw new ServiceException("Сотрудников в базе нет");
+
+        for (int i = 0; i <allOrganization.size() ; i++) {
+
+            View view = new View();
+
+            view.name = allOrganization.get(i).getName();
+            view.sum = allOrganization.get(i).getSum();
+
+
+            viewlist.add(view);
+        }
+        //logger.info("User get ID:" + id);
+        return viewlist;
+
+    }
+
+    @Override
+    @Transactional
     public Account balance(Long name) {
         logger.info("Account get by name:" + name);
         Account account = dao.balance(name);
-        if(dao.balance(name) == null) throw new ServiceException("Аккаунта № " + name + " не существует");
+        if(account.getName() == null) throw new ServiceException("Аккаунта № " + name + " не существует");
         return account;
     }
 
     @Override
     @Transactional
     public void create(View view) {
-        Account account = new Account(view.name, view.sum);
+        Account account = new Account(view.name);
         logger.info("Create account " + account.toString());
-        dao.create(account);
-
+        for (Account acc : dao.getAllAccount()) {
+            Long accName = acc.getName();
+            if (accName.equals(account.getName()))
+                throw new ServiceException("Аккаунт № " + account.getName() + " уже существует");
+            dao.create(account);
+        }
     }
 
     @Override
@@ -48,6 +79,7 @@ public class ServiceImpl implements Services {
         Long name = view.name;
         Account account = dao.balance(name);
         if(account == null) throw new ServiceException("Аккаунта № " + name + " не существует");
+        if(view.sum < 0) throw new ServiceException("Невозможно положить отрицтельную сумму!!!");
         account.setSum(account.getSum() + view.sum);
         logger.info("Deposit on account" + account.toString());
         dao.deposit(account);
@@ -59,6 +91,7 @@ public class ServiceImpl implements Services {
         Long name = view.name;
         Account account = dao.balance(name);
         if(name == null) throw new ServiceException("Аккаунта № " + name + " не существует");
+        if(view.sum < 0) throw new ServiceException("Невозможно снять отрицтельную сумму!!!");
         account.setSum(account.getSum() - view.sum);
         if(account.getSum() < 0) throw new ServiceException("На счету недостаточно средств");
         logger.info("Withdraw on account" + account.toString());
@@ -72,6 +105,7 @@ public class ServiceImpl implements Services {
         logger.info("Account name " + name + " deleted");
         Account account = dao.balance(name);
         if(account == null) throw new ServiceException("Аккаунта № " + name + " не существует");
+        if(account.getSum() != 0) throw new ServiceException("На счету есть средства, удаление невозможно");
         dao.delete(account);
 
     }

@@ -35,12 +35,11 @@ public class daoTest {
         //test balance
         Account account = dao.balance(00001L);
         Assert.assertNotNull(account);
-        Assert.assertEquals((long)00001L, (long)account.getName());
+        Assert.assertEquals(00001L, (long)account.getName());
 
         //test create
         Account createTestAccount = new Account();
-        createTestAccount.setName(00006L);
-        createTestAccount.setSum(0L);
+        createTestAccount.setName(00101L);
         dao.create(createTestAccount);
         accounts = dao.getAllAccount();
         Assert.assertEquals(6, accounts.size());
@@ -61,7 +60,7 @@ public class daoTest {
         dao.deposit(depositTestAccount);
         Account accountAfterDeposit = dao.balance(00002L);
         Assert.assertNotNull(accountAfterDeposit);
-        Assert.assertEquals((long)20000L, (long) accountAfterDeposit.getSum());
+        Assert.assertEquals(20000L, (long) accountAfterDeposit.getSum());
 
 
         //test withdraw
@@ -73,6 +72,6 @@ public class daoTest {
         dao.deposit(withdrawTestAccount);
         Account accountAfterWithdraw = dao.balance(00003L);
         Assert.assertNotNull(accountAfterWithdraw);
-        Assert.assertEquals((long)10000L, (long) accountAfterWithdraw.getSum());
+        Assert.assertEquals(10000L, (long) accountAfterWithdraw.getSum());
     }
 }

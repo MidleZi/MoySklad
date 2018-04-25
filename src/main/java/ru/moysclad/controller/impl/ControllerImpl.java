@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.logging.Logger;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 
 @RestController
@@ -54,8 +52,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    @ApiOperation(value = "depositOnAccount", nickname = "depositOnAccount", httpMethod = "POST")
-    @RequestMapping(value = "/deposit", method = {POST})
+    @ApiOperation(value = "depositOnAccount", nickname = "depositOnAccount", httpMethod = "PUT")
+    @RequestMapping(value = "/deposit", method = {PUT})
     public Response deposit(@RequestBody View view) {
         try {
             if(view.name == null) throw new ControllerException();
@@ -75,8 +73,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    @ApiOperation(value = "withdrawOnAccount", nickname = "withdrawOnAccount", httpMethod = "POST")
-    @RequestMapping(value = "/withdraw", method = {POST})
+    @ApiOperation(value = "withdrawOnAccount", nickname = "withdrawOnAccount", httpMethod = "PUT")
+    @RequestMapping(value = "/withdraw", method = {PUT})
     public Response withdraw(@RequestBody View view) {
         try {
             if(view.name == null) throw new ControllerException();
