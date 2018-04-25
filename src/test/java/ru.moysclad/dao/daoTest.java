@@ -33,44 +33,44 @@ public class daoTest {
         Assert.assertEquals(5, accounts.size());
 
         //test balance
-        Account account = dao.balance(00001L);
+        Account account = dao.balance("00001");
         Assert.assertNotNull(account);
-        Assert.assertEquals(00001L, (long)account.getName());
+        Assert.assertEquals("00001", account.getId());
 
         //test create
         Account createTestAccount = new Account();
-        createTestAccount.setName(00101L);
+        createTestAccount.setId("00101");
         dao.create(createTestAccount);
         accounts = dao.getAllAccount();
         Assert.assertEquals(6, accounts.size());
 
 
         //test delete
-        dao.delete(dao.balance(00005L));
+        dao.delete(dao.balance("00005"));
         accounts = dao.getAllAccount();
         Assert.assertEquals(5, accounts.size());
 
 
         //test deposit
-        Account depositTestAccount = dao.balance(00002L);
+        Account depositTestAccount = dao.balance("00002");
         depositTestAccount.setSum(15000L);
         Assert.assertNotNull(depositTestAccount);
         Long sumForUpdate = 20000L;
         depositTestAccount.setSum(sumForUpdate);
         dao.deposit(depositTestAccount);
-        Account accountAfterDeposit = dao.balance(00002L);
+        Account accountAfterDeposit = dao.balance("00002");
         Assert.assertNotNull(accountAfterDeposit);
         Assert.assertEquals(20000L, (long) accountAfterDeposit.getSum());
 
 
         //test withdraw
-        Account withdrawTestAccount = dao.balance(00003L);
+        Account withdrawTestAccount = dao.balance("00003");
         withdrawTestAccount.setSum(15000L);
         Assert.assertNotNull(withdrawTestAccount);
         sumForUpdate = 10000L;
         withdrawTestAccount.setSum(sumForUpdate);
         dao.deposit(withdrawTestAccount);
-        Account accountAfterWithdraw = dao.balance(00003L);
+        Account accountAfterWithdraw = dao.balance("00003");
         Assert.assertNotNull(accountAfterWithdraw);
         Assert.assertEquals(10000L, (long) accountAfterWithdraw.getSum());
     }

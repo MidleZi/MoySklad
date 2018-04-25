@@ -33,7 +33,7 @@ public class ControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         View body = new View();
-        body.name = 00006L;
+        body.id = "00006";
         HttpEntity entity = new HttpEntity<>(body, headers);
 
         ResponseEntity<ResponseViewData> responseEntity =
@@ -57,7 +57,7 @@ public class ControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         View body = new View();
-        body.name = 00004L;
+        body.id = "00004";
         body.sum = 10000L;
         HttpEntity entity = new HttpEntity<>(body, headers);
 
@@ -82,7 +82,7 @@ public class ControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         View body = new View();
-        body.name = 00004L;
+        body.id = "00004";
         body.sum = 10000L;
         HttpEntity entity = new HttpEntity<>(body, headers);
 
@@ -113,7 +113,7 @@ public class ControllerTest {
         Object data = responseView.getData();
         Assert.assertNotNull(data);
 
-        String waitingResponse = "{id=1, name=1, sum=1000}";
+        String waitingResponse = "{id=00001, sum=1000}";
         Assert.assertEquals(waitingResponse, data.toString());
     }
 

@@ -6,9 +6,7 @@ import ru.moysclad.model.Account;
 public class View {
     @ApiModelProperty(hidden = true)
 
-    public Long id;
-
-    public Long name;
+    public String id;
 
     public Long sum = 0L;
 
@@ -16,13 +14,11 @@ public class View {
 
     }
 
-    public View(Long name, Long sum ){
-        this.name = name;
+    public View(Long sum ){
         this.sum = sum;
     }
 
     public Account viewConvert(Account acc){
-        acc.setName(name);
         acc.setSum(sum);
 
         return acc;
@@ -30,6 +26,6 @@ public class View {
 
     @Override
     public String toString() {
-        return "{id:" + id + ";name:" + name+ ";sum:" + sum + "}";
+        return "{id:" + id + ";sum:" + sum + "}";
     }
 }

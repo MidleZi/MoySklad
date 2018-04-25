@@ -5,42 +5,37 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "account")
-@NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
+@NamedQuery(name = "Account.findAll", query = "SELECT p FROM Account p")
 public class Account {
 
     @Id
-    @GeneratedValue
     @Column(name = "id")
-    private Long id;
-
-    @JoinColumn(name = "name")
-    private Long name;
+    private String id;
 
     @Version
     private Integer version = 0;
 
-    @JoinColumn(name = "sum")
+    @Column(name = "sum")
     private Long sum = 0L;
 
     public Account(){
 
     }
 
-    public Account(Long name, Long sum){
-        this.name = name;
+    public Account(String id, Long sum){
+        this.id = id;
         this.sum = sum;
     }
 
-    public Account(Long name) {
-        this.name = name;
+    public Account(String id) {
+        this.id = id;
     }
+
 
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("{id:");
         builder.append(getId());
-        builder.append("{name:");
-        builder.append(getName());
         builder.append("{sum:");
         builder.append(getSum());
         builder.append("}");
@@ -48,20 +43,16 @@ public class Account {
         return builder.toString();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
-    }
-
-    public Long getName() {
-        return name;
     }
 
     public Long getSum() {
         return sum;
     }
 
-    public void setName(Long name) {
-        this.name = name;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setSum(Long sum) {

@@ -14,7 +14,7 @@ public interface DAO {
 
     void withdraw(Account account);
 
-    Account balance(Long name);
+    Account balance(String id);
 
     void delete(Account account);
 }

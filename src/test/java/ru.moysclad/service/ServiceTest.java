@@ -35,10 +35,10 @@ public class ServiceTest {
 
 
     @Test
-    public void testCreateDelete(){
+    public void testCreate(){
         //create
         View view = new View();
-        view.name = 00101L;
+        view.id = "00101";
 
         service.create(view);
 
@@ -47,25 +47,17 @@ public class ServiceTest {
         Assert.assertNotNull(accounts);
         Assert.assertFalse(accounts.isEmpty());
         Assert.assertEquals(6, accounts.size());
-
-        //delete
-
-        service.delete(00101L);
-
-        Assert.assertNotNull(accounts);
-        Assert.assertFalse(accounts.isEmpty());
-        Assert.assertEquals(5, accounts.size());
     }
 
     @Test
     public void testDeposit(){
         View view = new View();
-        view.name = 00001L;
+        view.id = "00001";
         view.sum = 15000L;
 
         service.deposit(view);
 
-        Account account = service.balance(00001L);
+        Account account = service.balance("00001");
 
         Assert.assertNotNull(account);
         Assert.assertEquals( 16000L, (long)account.getSum());
@@ -74,12 +66,12 @@ public class ServiceTest {
     @Test
     public void testWithdraw(){
         View view = new View();
-        view.name = 00004L;
+        view.id = "00004";
         view.sum = 15000L;
 
         service.withdraw(view);
 
-        Account account = service.balance(00004L);
+        Account account = service.balance("00004");
 
         Assert.assertNotNull(account);
         Assert.assertEquals( 15000L, (long)account.getSum());
@@ -87,9 +79,21 @@ public class ServiceTest {
 
     @Test
     public void testBalance(){
-        Account account = service.balance(00002L);
+        Account account = service.balance("00002");
         Assert.assertNotNull(account);
-        Assert.assertEquals(00002L,(long) account.getName());
+        Assert.assertEquals("00002", account.getId());
+    }
+
+    @Test
+    public void testDelete(){
+
+        List<View> accounts = service.getAllAccounts();
+
+        service.delete("00005");
+
+        Assert.assertNotNull(accounts);
+        Assert.assertFalse(accounts.isEmpty());
+        Assert.assertEquals(5, accounts.size());
     }
 
 }

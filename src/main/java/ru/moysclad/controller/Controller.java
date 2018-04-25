@@ -11,7 +11,7 @@ public interface Controller {
 
    Response withdraw(View view);
 
-   Response balance(Long name);
+   Response balance(String id);
 
-   Response delete(Long name);
+   Response delete(String id);
 }

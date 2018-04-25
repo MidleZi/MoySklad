@@ -49,14 +49,14 @@ public class DAOImpl implements DAO {
     }
 
     @Override
-    public Account balance(Long name) {
-        logger.info("Account get ID:" + name);
-        return em.find(Account.class, name);
+    public Account balance(String id) {
+        logger.info("Account get ID:" + id);
+        return em.find(Account.class, id);
     }
 
     @Override
     public void delete(Account account) {
-        logger.info("Account name " + account.getName() + " deleted");
+        logger.info("Account name " + account.getId() + " deleted");
         em.remove(account);
     }
 

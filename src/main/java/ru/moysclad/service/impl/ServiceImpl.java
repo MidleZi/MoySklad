@@ -40,45 +40,45 @@ public class ServiceImpl implements Services {
 
             View view = new View();
 
-            view.name = allOrganization.get(i).getName();
+            view.id = allOrganization.get(i).getId();
             view.sum = allOrganization.get(i).getSum();
 
 
             viewlist.add(view);
         }
-        //logger.info("User get ID:" + id);
+
         return viewlist;
 
     }
 
     @Override
     @Transactional
-    public Account balance(Long name) {
-        logger.info("Account get by name:" + name);
-        Account account = dao.balance(name);
-        if(account == null) throw new ServiceException("Аккаунта № " + name + " не существует");
+    public Account balance(String id) {
+        logger.info("Account get by name:" + id);
+        Account account = dao.balance(id);
+        if(account == null) throw new ServiceException("Аккаунта № " + id + " не существует");
         return account;
     }
 
     @Override
     @Transactional
     public void create(View view) {
-        Account account = new Account(view.name);
+        Account account = new Account(view.id);
         logger.info("Create account " + account.toString());
         for (Account acc : dao.getAllAccount()) {
-            Long accName = acc.getName();
-            if (accName.equals(account.getName()))
-                throw new ServiceException("Аккаунт № " + account.getName() + " уже существует");
-            dao.create(account);
+            String accName = acc.getId();
+            if (accName.compareTo(account.getId()) == 0)
+                throw new ServiceException("Аккаунт № " + account.getId() + " уже существует");
         }
+        dao.create(account);
     }
 
     @Override
     @Transactional
     public void deposit(View view) {
-        Long name = view.name;
-        Account account = dao.balance(name);
-        if(account == null) throw new ServiceException("Аккаунта № " + name + " не существует");
+        String id = view.id;
+        Account account = dao.balance(id);
+        if(account == null) throw new ServiceException("Аккаунта № " + id + " не существует");
         if(view.sum < 0) throw new ServiceException("Невозможно положить отрицтельную сумму!!!");
         account.setSum(account.getSum() + view.sum);
         logger.info("Deposit on account" + account.toString());
@@ -88,9 +88,9 @@ public class ServiceImpl implements Services {
     @Override
     @Transactional
     public void withdraw(View view){
-        Long name = view.name;
-        Account account = dao.balance(name);
-        if(account == null) throw new ServiceException("Аккаунта № " + name + " не существует");
+        String id = view.id;
+        Account account = dao.balance(id);
+        if(account == null) throw new ServiceException("Аккаунта № " + id + " не существует");
         if(view.sum < 0) throw new ServiceException("Невозможно снять отрицтельную сумму!!!");
         account.setSum(account.getSum() - view.sum);
         if(account.getSum() < 0) throw new ServiceException("На счету недостаточно средств");
@@ -101,10 +101,10 @@ public class ServiceImpl implements Services {
 
     @Override
     @Transactional
-    public void delete(Long name) {
-        logger.info("Account name " + name + " deleted");
-        Account account = dao.balance(name);
-        if(account == null) throw new ServiceException("Аккаунта № " + name + " не существует");
+    public void delete(String id) {
+        logger.info("Account name " + id + " deleted");
+        Account account = dao.balance(id);
+        if(account == null) throw new ServiceException("Аккаунта № " + id + " не существует");
         if(account.getSum() != 0) throw new ServiceException("На счету есть средства, удаление невозможно");
         dao.delete(account);
 

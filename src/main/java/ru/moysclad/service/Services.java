@@ -16,7 +16,7 @@ public interface Services {
 
     void withdraw(View view);
 
-    Account balance(Long name);
+    Account balance(String id);
 
-    void delete(Long name);
+    void delete(String id);
 }

@@ -46,15 +46,15 @@ public class MyApplication {
 
     @Bean
     public Docket postApi() {
-        return new Docket(DocumentationType.SWAGGER_2).groupName("offices").apiInfo(apiInfo()).
-                select().paths(regex("/office.*")).build();
+        return new Docket(DocumentationType.SWAGGER_2).groupName("account").apiInfo(apiInfo()).
+                select().paths(regex("/balance*")).build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Spring REST Sample with Swagger")
                 .description("Spring REST Sample with Swagger")
-                .contact("https://github.com/MidleZi/BellIntgratorProject")
+                .contact("https://github.com/MidleZi/MoySklad")
                 .version("1.0")
                 .build();
     }
